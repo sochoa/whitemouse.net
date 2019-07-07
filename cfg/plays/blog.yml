@@ -1,0 +1,28 @@
+---
+
+
+- hosts: all
+  tasks: 
+    - name: Check for docker
+      shell: "test -f /bin/docker && test -f /usr/local/bin/docker-compose && echo DOCKER_EXISTS"
+      ignore_errors: yes
+      register: check_for_docker
+    - set_fact: 
+        docker_exists: '"DOCKER_EXIST" in check_for_docker.stdout'
+
+- hosts: all
+  roles:
+    - role: geerlingguy.docker
+      when: 'not docker_exists'
+
+- hosts: all
+  tasks: 
+    - name: Clean /srv
+      include: ../tasks/clean.yml
+      when: 'clean_srv | default(false) | bool'
+
+- hosts: all
+  tasks: 
+  - include: ../tasks/packages.yml
+  - include: ../tasks/set-path.yml
+  - include: ../tasks/wordpress.yml

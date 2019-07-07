@@ -1,0 +1,37 @@
+---
+- name: Creates /srv directory on remote host
+  file:
+    path: /srv
+    state: directory
+
+- name: Copy blog systemd unit file to remote host
+  copy:
+    src: "../files/{{item}}"
+    dest: "/etc/systemd/system/{{item}}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+  - docker.wordpress.service
+  - docker.wordpress-mysql.service
+
+- name: Copy docker run wrapper scripts to remote host
+  copy:
+    src: "../files/{{item}}"
+    dest: "/usr/bin/{{item}}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+  - docker-run-wordpress.sh
+  - docker-run-wordpress-mysql.sh
+  - docker-stop-all.sh
+
+#- name: Start Blog
+#  systemd: 
+#    name: "{{item}}"
+#    daemon_reload: yes
+#    state:  started
+#  with_items:
+#  - docker.wordpress-mysql.service
+#  - docker.wordpress.service

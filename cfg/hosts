@@ -1,0 +1,1 @@
+ec2-34-218-241-174.us-west-2.compute.amazonaws.com ansible_user=centos ansible_become=yes ansible_become_user=root

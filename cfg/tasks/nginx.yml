@@ -1,0 +1,10 @@
+---
+- name: Creates /srv/nginx directory on remote host
+  file:
+    path: /srv/nginx
+    state: directory
+
+- name: Copy nginx config to remote host
+  copy: 
+    src: ../files/wp-nginx.conf
+    dest: /srv/nginx/blog.conf

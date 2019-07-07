@@ -1,0 +1,15 @@
+[Unit]
+Description=docker.wordpress-mysql.service
+After=docker.service
+Requires=docker.service
+ 
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop docker.wordpress-mysql.service
+ExecStartPre=-/usr/bin/docker rm docker.wordpress-mysql.service
+ExecStartPre=/usr/bin/docker pull mysql:5.7
+ExecStart=/usr/bin/docker-run-wordpress.sh
+ 
+[Install]
+WantedBy=multi-user.target

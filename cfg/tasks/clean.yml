@@ -1,0 +1,3 @@
+---
+- name: Clean /srv
+  shell: rm -rf /srv

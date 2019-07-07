@@ -1,0 +1,5 @@
+---
+- name: add /usr/local/bin to path
+  copy:
+    content: 'export PATH="${PATH}:/usr/local/bin"'
+    dest: '/etc/profile.d/usr-local-bin.sh'
