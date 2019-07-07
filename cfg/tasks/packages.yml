@@ -11,6 +11,15 @@
     - nc
     - traceroute
     - epel-release
+    - sendmail
+
+- name: Enesure services are started+enabled
+  systemd:
+    state: started
+    name: "{{item}}"
+    enabled: yes
+  with_items:
+    - sendmail
 
 - name: Setup dot files
   copy: 

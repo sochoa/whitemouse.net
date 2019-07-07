@@ -3,5 +3,5 @@ enabled = true
 port = ssh
 action = iptables-multiport
 logpath = /var/log/secure
-maxretry = 5
-bantime = 600
+maxretry = 3
+bantime = 1200
