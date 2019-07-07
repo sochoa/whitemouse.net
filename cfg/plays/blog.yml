@@ -26,3 +26,4 @@
   - include: ../tasks/packages.yml
   - include: ../tasks/set-path.yml
   - include: ../tasks/wordpress.yml
+  - include: ../tasks/fail2ban.yml

@@ -1,0 +1,25 @@
+--- 
+
+- name: Install Fail2Ban
+  package: 
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - fail2ban 
+    - fail2ban-systemd
+
+- name:  Configure Fail2Ban with fail2ban.local config
+  shell: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+  args: 
+    creates: /etc/fail2ban/jail.local
+
+- name:  Configure fail2ban sshd jail integration
+  copy: 
+    src: ../files/fail2ban-sshd-jail.local
+    dest: /etc/fail2ban/jail.d/sshd.local
+
+- name: Enesure fail2ban service is started
+  systemd:
+    state: started
+    name: fail2ban
+    enabled: yes
